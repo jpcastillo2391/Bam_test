@@ -214,8 +214,8 @@ def main():
                             MntAprobadas  =('totalcTrAprobadas',sum),MntAtrasadas  =('totalcTrAtrasadas',sum),MntRechazadas  =('totalcTrRechazadas',sum),
                             MntEnviadas  =('totalcTrEnviadas',sum),MntCanceladas  =('totalcTrCanceladas',sum))
     ###Resultado_tabla_Inciso1
-    display(SalesOrderHeaderDummyfied)
-    SalesOrderHeaderDummyfied.to_csv('Resultado-inciso1-desde-python.csv', encoding='utf-8')
+    display(SalesOrderHeaderDummyfied_joined)
+    SalesOrderHeaderDummyfied_joined.to_csv('Resultado-inciso1-desde-python.csv', encoding='utf-8')
     
     logging.info(str(datetime.now())+'*******************-  Fin del  INCISO 1 en python-**********************')
 
@@ -228,7 +228,3 @@ if __name__ == "__main__":
 
 
 
-
-
-    
-    
