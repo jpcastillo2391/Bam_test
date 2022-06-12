@@ -58,6 +58,13 @@ class Connections:
     def postgres_CreateandFill(self,resultDF,TableName):
         try:
             print("******************************************************************************")
+            resultDF.columns=resultDF.columns.str.lower()
+            
+            for i in range(0,len(resultDF.columns)):
+                if "group" in resultDF.columns.values[i].lower():
+                    resultDF.columns.values[i] = resultDF.columns.values[i].lower()+"_t"
+                if "name" in resultDF.columns[i].lower():
+                    resultDF.columns.values[i] = resultDF.columns.values[i].lower()+"_t"
             self.mysql_CreateTableHeader_intoPostgres(resultDF,TableName)
             self.postgres_fillinTable(resultDF,TableName)
             print("******************************************************************************")
@@ -75,7 +82,7 @@ class Connections:
     def mysql_CreateTableHeader_intoPostgres(self,resultDF,TableName):
         try:
             columnName = list(resultDF.columns.values)
-            print(resultDF.dtypes)
+            #print(resultDF.dtypes)
             columnDataType = self.getColumnDtypes(resultDF.dtypes)
             #uncomment if you want to check the columns properties
             #print(columnName,columnDataType,len(columnName),len(columnDataType))
@@ -83,11 +90,7 @@ class Connections:
             for i in range(len(columnDataType)):
                 if "date" in columnName[i].lower():
                     columnDataType[i]="timestamp"
-                if "group" in columnName[i].lower():
-                    columnName[i] = columnName[i].lower()+"_t"
-                if "name" in columnName[i].lower():
-                    columnName[i] = columnName[i].lower()+"_t"
-                createTableStatement = createTableStatement + '\n' + columnName[i] + ' ' + columnDataType[i] + ','
+                createTableStatement = createTableStatement + '\n' + columnName[i].lower().replace(" ","") + ' ' + columnDataType[i] + ','
             createTableStatement = createTableStatement[:-1] + ' );'
             ##UNCOMMENT IF YOU WANT TO CHECK THE CREATION QUERY
             ##print(createTableStatement)
@@ -142,7 +145,6 @@ class Connections:
     
     
 def main():
-    
     logging.basicConfig(filename='ETLBamApp.log', filemode='w', format='%(name)s - %(levelname)s - %(message)s', level=logging.DEBUG, force=True)
     logging.getLogger()
     logging.info('Starting The application ETL in Python')
@@ -169,17 +171,17 @@ def main():
                     table_solicitud = pd.read_csv("Test_Files/"+table + ".csv",sep=separators[i])
                     if len(table_solicitud.columns)<=1:
                             raise Exception("Only one column excel, doesnt work")
-                    QueryConnections.postgres_CreateandFill(table_solicitud,table.replace(".","_"))
+                    QueryConnections.postgres_CreateandFill(table_solicitud,table.replace(".","_").lower())
                     logging.info("Open and saver Table: "+table+".csv")
                     break
                 except Exception as e:
-                    print(e + "Error opening: "+table+".csv  with :'"+separators[i]+"' separator")
-                    logging.error("Error opening: "+table+".csv  with :'"+separators[i]+"' separator")
+                    print("Error****")
             
     except Exception as e:
         print("ERROR IN PROCESS READ AND LOAD INTO POSTGRES",e)
         logging.error("ERROR. Open and saver Table")
-            
+
+
     logging.info(str(datetime.now())+'*******************-          END  ETL   MIGRATION              -**********************')
 
 
@@ -213,12 +215,10 @@ def main():
                             MntEnviadas  =('totalcTrEnviadas',sum),MntCanceladas  =('totalcTrCanceladas',sum))
     ###Resultado_tabla_Inciso1
     display(SalesOrderHeaderDummyfied)
-    SalesOrderHeaderDummyfied.to_csv('Resultado-inciso1.csv', encoding='utf-8')
+    SalesOrderHeaderDummyfied.to_csv('Resultado-inciso1-desde-python.csv', encoding='utf-8')
     
     logging.info(str(datetime.now())+'*******************-  Fin del  INCISO 1 en python-**********************')
 
-
-    
     
 if __name__ == "__main__":
     display()
