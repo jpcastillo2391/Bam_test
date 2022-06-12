@@ -182,46 +182,51 @@ def main():
             
     logging.info(str(datetime.now())+'*******************-          END  ETL   MIGRATION              -**********************')
 
+
+    logging.info(str(datetime.now())+'*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************')
+    logging.info(str(datetime.now())+'*******************-   INCISO 1 -**********************')
+    # utilizando las tablas  SalesOrderHeader  y  SalesTerritory  escriba una consulta para calcular la
+    # cantidad de transacciones y monto total mensual por territorio para cada uno de los estados según el
+    # campo  Status . Los valores de  Status  son:  1  =  In process ;  2  =  Approved ;  3  =  Backordered ;  4 
+    # =  Rejected ;  5  =  Shipped ;  6  =  Cancelled 
+    SalesTerritory = pd.read_csv("Test_Files/Sales.SalesTerritory.csv",sep=';')
+    SalesOrderHeader = pd.read_csv("Test_Files/Sales.SalesOrderHeader.csv",sep=';')
+    SalesOrderHeader[["OrderDate","DueDate","ShipDate"]]=SalesOrderHeader[["OrderDate","DueDate","ShipDate"]].apply(pd.to_datetime)
+    SalesOrderHeader['Mes']=SalesOrderHeader["OrderDate"].dt.strftime('%Y-%m')
+    #SalesOrderHeader['Total']=SalesOrderHeader["Subtotal"]+SalesOrderHeader["Subtotal"]+SalesOrderHeader["Subtotal"]
+    SalesOrderHeaderDummyfied=SalesOrderHeader.join(pd.get_dummies(SalesOrderHeader['Status']))
+    SalesOrderHeaderDummyfied.rename(columns = {1:'cTrProceso', 2:'cTrAprobadas', 3:'cTrAtrasadas', 4:'cTrRechazadas', 5:'cTrEnviadas', 6:'cTrCanceladas'}, inplace = True)
+    SalesOrderHeaderDummyfied['totalcTrProceso']=SalesOrderHeaderDummyfied.query('cTrProceso==1')['TotalDue']
+    SalesOrderHeaderDummyfied['totalcTrAprobadas']=SalesOrderHeaderDummyfied.query('cTrAprobadas==1')['TotalDue']
+    SalesOrderHeaderDummyfied['totalcTrAtrasadas']=SalesOrderHeaderDummyfied.query('cTrAtrasadas==1')['TotalDue']
+    SalesOrderHeaderDummyfied['totalcTrRechazadas']=SalesOrderHeaderDummyfied.query('cTrRechazadas==1')['TotalDue']
+    SalesOrderHeaderDummyfied['totalcTrEnviadas']=SalesOrderHeaderDummyfied.query('cTrEnviadas==1')['TotalDue']
+    SalesOrderHeaderDummyfied['totalcTrCanceladas']=SalesOrderHeaderDummyfied.query('cTrCanceladas==1')['TotalDue']
+
+    SalesOrderHeaderDummyfied_joined=pd.merge(SalesOrderHeaderDummyfied, SalesTerritory, on="TerritoryID")
+
+
+    SalesOrderHeaderDummyfied_joined=SalesOrderHeaderDummyfied_joined.groupby(by=['Mes','Name']).agg(TrProceso=('cTrProceso', 'count'),
+                            TrAprobadas=('cTrAprobadas', 'count'),TrAtrasadas=('cTrAtrasadas', 'count'),TrRechazadas=('cTrRechazadas', 'count'),
+                            TrEnviadas=('cTrEnviadas', 'count'),TrCanceladas=('cTrCanceladas', 'count'),MntProceso  =('totalcTrProceso',sum),
+                            MntAprobadas  =('totalcTrAprobadas',sum),MntAtrasadas  =('totalcTrAtrasadas',sum),MntRechazadas  =('totalcTrRechazadas',sum),
+                            MntEnviadas  =('totalcTrEnviadas',sum),MntCanceladas  =('totalcTrCanceladas',sum))
+    ###Resultado_tabla_Inciso1
+    display(SalesOrderHeaderDummyfied)
+    SalesOrderHeaderDummyfied.to_csv('Resultado-inciso1.csv', encoding='utf-8')
+    
+    logging.info(str(datetime.now())+'*******************-  Fin del  INCISO 1 en python-**********************')
+
+
     
     
 if __name__ == "__main__":
     display()
-    #main()
+    main()
     
     
 
-logging.info(str(datetime.now())+'*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************')
-logging.info(str(datetime.now())+'*******************-   INCISO 1 -**********************')
-# utilizando las tablas  SalesOrderHeader  y  SalesTerritory  escriba una consulta para calcular la
-# cantidad de transacciones y monto total mensual por territorio para cada uno de los estados según el
-# campo  Status . Los valores de  Status  son:  1  =  In process ;  2  =  Approved ;  3  =  Backordered ;  4 
-# =  Rejected ;  5  =  Shipped ;  6  =  Cancelled 
-SalesTerritory = pd.read_csv("Test_Files/Sales.SalesTerritory.csv",sep=';')
-SalesOrderHeader = pd.read_csv("Test_Files/Sales.SalesOrderHeader.csv",sep=';')
-SalesOrderHeader[["OrderDate","DueDate","ShipDate"]]=SalesOrderHeader[["OrderDate","DueDate","ShipDate"]].apply(pd.to_datetime)
-SalesOrderHeader['Mes']=SalesOrderHeader["OrderDate"].dt.strftime('%Y-%m')
-#SalesOrderHeader['Total']=SalesOrderHeader["Subtotal"]+SalesOrderHeader["Subtotal"]+SalesOrderHeader["Subtotal"]
-SalesOrderHeaderDummyfied=SalesOrderHeader.join(pd.get_dummies(SalesOrderHeader['Status']))
-SalesOrderHeaderDummyfied.rename(columns = {1:'cTrProceso', 2:'cTrAprobadas', 3:'cTrAtrasadas', 4:'cTrRechazadas', 5:'cTrEnviadas', 6:'cTrCanceladas'}, inplace = True)
-SalesOrderHeaderDummyfied['totalcTrProceso']=SalesOrderHeaderDummyfied.query('cTrProceso==1')['TotalDue']
-SalesOrderHeaderDummyfied['totalcTrAprobadas']=SalesOrderHeaderDummyfied.query('cTrAprobadas==1')['TotalDue']
-SalesOrderHeaderDummyfied['totalcTrAtrasadas']=SalesOrderHeaderDummyfied.query('cTrAtrasadas==1')['TotalDue']
-SalesOrderHeaderDummyfied['totalcTrRechazadas']=SalesOrderHeaderDummyfied.query('cTrRechazadas==1')['TotalDue']
-SalesOrderHeaderDummyfied['totalcTrEnviadas']=SalesOrderHeaderDummyfied.query('cTrEnviadas==1')['TotalDue']
-SalesOrderHeaderDummyfied['totalcTrCanceladas']=SalesOrderHeaderDummyfied.query('cTrCanceladas==1')['TotalDue']
 
-
-SalesOrderHeaderDummyfied=SalesOrderHeaderDummyfied.groupby(
-    by=['Mes','TerritoryID']).agg(TrProceso=('cTrProceso', 'count'),TrAprobadas=('cTrAprobadas', 'count'),TrAtrasadas=('cTrAtrasadas', 'count'),TrRechazadas=('cTrRechazadas', 'count'),
-                                  TrEnviadas=('cTrEnviadas', 'count'),TrCanceladas=('cTrCanceladas', 'count'),MntProceso  =('totalcTrProceso',sum),
-                                  MntAprobadas  =('totalcTrAprobadas',sum),MntAtrasadas  =('totalcTrAtrasadas',sum),MntRechazadas  =('totalcTrRechazadas',sum),
-                                  MntEnviadas  =('totalcTrEnviadas',sum),MntCanceladas  =('totalcTrCanceladas',sum))
-###Resultado_tabla_Inciso1
-display(SalesOrderHeaderDummyfied)
-SalesOrderHeaderDummyfied.to_csv('Resultado-inciso1.csv', encoding='utf-8')
-print(SalesTerritory.dtypes)
-print(SalesOrderHeader.dtypes)
-print(SalesOrderHeaderDummyfied.dtypes)
 
 
 
