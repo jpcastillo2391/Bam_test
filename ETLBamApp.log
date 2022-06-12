@@ -1,0 +1,170 @@
+root - INFO - Starting The application ETL in Python
+root - INFO - 2022-06-12 10:02:25.692415 *******************-       START NECESARY TABLES MIGRATION       -**********************
+root - INFO - 2022-06-12 10:02:26.000948	datos_base_clientes Header created
+root - DEBUG - 2022-06-12 10:02:26.001417	Filling: datos_base_clientes
+root - INFO - 2022-06-12 10:02:51.488416	Finish... datos_base_clientes
+root - INFO - Open and saver Table: datos_base_clientes.csv
+root - ERROR - Error opening: Person.Person.csv  with :',' separator
+root - INFO - 2022-06-12 10:02:51.751454	Person_Person Header created
+root - DEBUG - 2022-06-12 10:02:51.751920	Filling: Person_Person
+root - INFO - 2022-06-12 10:02:59.078933	Finish... Person_Person
+root - INFO - Open and saver Table: Person.Person.csv
+root - ERROR - Error opening: Production.Product.csv  with :',' separator
+root - INFO - 2022-06-12 10:02:59.131512	Production_Product Header created
+root - DEBUG - 2022-06-12 10:02:59.131914	Filling: Production_Product
+root - INFO - 2022-06-12 10:02:59.623932	Finish... Production_Product
+root - INFO - Open and saver Table: Production.Product.csv
+root - ERROR - Error opening: Sales.Customer.csv  with :',' separator
+root - INFO - 2022-06-12 10:02:59.727419	Sales_Customer Header created
+root - DEBUG - 2022-06-12 10:02:59.727419	Filling: Sales_Customer
+root - INFO - 2022-06-12 10:03:03.425451	Finish... Sales_Customer
+root - INFO - Open and saver Table: Sales.Customer.csv
+root - ERROR - Error opening: Sales.SalesOrderDetail.csv  with :',' separator
+root - INFO - 2022-06-12 10:03:04.199930	Sales_SalesOrderDetail Header created
+root - DEBUG - 2022-06-12 10:03:04.200415	Filling: Sales_SalesOrderDetail
+root - INFO - 2022-06-12 10:03:40.427950	Finish... Sales_SalesOrderDetail
+root - INFO - Open and saver Table: Sales.SalesOrderDetail.csv
+root - INFO - 2022-06-12 10:03:40.447958	Secuenciales Header created
+root - DEBUG - 2022-06-12 10:03:40.448419	Filling: Secuenciales
+root - INFO - 2022-06-12 10:03:41.077917	Finish... Secuenciales
+root - INFO - Open and saver Table: Secuenciales.csv
+root - ERROR - Error opening: Sales.SalesOrderHeader.csv  with :',' separator
+root - INFO - 2022-06-12 10:03:41.565419	Sales_SalesOrderHeader Header created
+root - DEBUG - 2022-06-12 10:03:41.566000	Filling: Sales_SalesOrderHeader
+root - INFO - 2022-06-12 10:04:01.710950	Finish... Sales_SalesOrderHeader
+root - INFO - Open and saver Table: Sales.SalesOrderHeader.csv
+root - ERROR - Error opening: Sales.SalesTerritory.csv  with :',' separator
+root - INFO - 2022-06-12 10:04:01.732955	Sales_SalesTerritory Header created
+root - DEBUG - 2022-06-12 10:04:01.732955	Filling: Sales_SalesTerritory
+root - INFO - 2022-06-12 10:04:01.834914	Finish... Sales_SalesTerritory
+root - INFO - Open and saver Table: Sales.SalesTerritory.csv
+root - INFO - 2022-06-12 10:09:46.330788*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 10:09:46.331288*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 10:10:06.612192*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 10:10:06.612192*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 10:10:32.116973*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 10:10:32.116973*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 10:15:27.486835*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 10:15:27.486835*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 10:19:20.515309*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 10:19:20.515809*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 10:19:53.955015*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 10:19:53.955015*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 10:20:53.375030*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 10:20:53.375030*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 10:51:25.032117*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 10:51:25.032622*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 10:51:40.149970*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 10:51:40.150516*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 10:51:54.936544*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 10:51:54.937051*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 10:53:51.004963*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 10:53:51.004963*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 10:53:57.055865*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 10:53:57.056377*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 10:54:21.104980*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 10:54:21.104980*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 10:54:43.559747*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 10:54:43.560151*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 10:54:47.924154*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 10:54:47.924154*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 10:54:53.526418*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 10:54:53.526418*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 10:56:55.850165*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 10:56:55.850165*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 11:00:47.809253*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 11:00:47.809253*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 11:01:06.267683*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 11:01:06.267725*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 11:01:21.628998*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 11:01:21.629497*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 11:01:41.311572*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 11:01:41.312072*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 11:07:27.258541*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 11:07:27.259034*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 11:07:58.766239*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 11:07:58.766239*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 11:33:28.397657*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 11:33:28.397657*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 11:34:41.021483*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 11:34:41.021689*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 11:35:23.778648*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 11:35:23.778848*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 11:35:37.202135*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 11:35:37.202634*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 11:36:03.943835*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 11:36:03.944340*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 11:36:10.792111*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 11:36:10.792111*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 11:37:42.217597*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 11:37:42.217597*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 11:37:56.002896*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 11:37:56.003396*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 11:38:50.049531*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 11:38:50.050031*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 11:39:12.998150*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 11:39:12.998650*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 11:39:38.605217*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 11:39:38.605217*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 11:39:49.880058*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 11:39:49.880058*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 11:40:25.193891*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 11:40:25.193891*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 11:40:45.747483*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 11:40:45.747983*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 11:41:43.691874*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 11:41:43.691874*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 11:42:41.755652*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 11:42:41.756684*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 11:44:19.858286*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 11:44:19.858712*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 11:45:15.162157*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 11:45:15.162157*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 11:49:42.645133*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 11:49:42.645133*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 11:49:55.601540*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 11:49:55.601540*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 11:50:04.472653*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 11:50:04.472653*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 12:11:45.218349*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 12:11:45.218349*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 12:12:09.672598*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 12:12:09.672598*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 12:14:35.885388*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 12:14:35.885388*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 12:23:39.208805*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 12:23:39.208805*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 12:24:06.457760*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 12:24:06.457760*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 12:25:26.974200*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 12:25:26.974700*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 12:32:34.502600*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 12:32:34.503099*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 12:34:13.143068*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 12:34:13.143068*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 12:40:23.996281*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 12:40:23.996756*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 12:49:58.686249*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 12:49:58.686249*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 12:51:40.720999*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 12:51:40.720999*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 12:51:43.174564*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 12:51:43.174564*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 12:52:07.302987*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 12:52:07.303163*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 12:53:16.872424*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 12:53:16.872928*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 12:55:12.427755*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 12:55:12.427755*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 12:56:29.506068*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 12:56:29.507039*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 13:00:32.490079*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 13:00:32.490580*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 13:01:59.984343*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 13:01:59.984343*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 13:02:07.161155*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 13:02:07.161655*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 13:02:14.077168*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 13:02:14.077168*******************-   INCISO 1 -**********************
+root - INFO - 2022-06-12 13:04:06.001126*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************
+root - INFO - 2022-06-12 13:04:06.001126*******************-   INCISO 1 -**********************
