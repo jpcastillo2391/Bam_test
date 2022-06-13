@@ -15,7 +15,7 @@ select to_char(sh.orderdate, 'YYYY-MM') as Mes,name_t as NombreTerritorio
 ,sum(case when sh.status = 3 THEN sh.totaldue else 0 end) as MntAtrasadas  
 ,sum(case when sh.status = 4 THEN sh.totaldue else 0 end) as MntRechazadas  
 ,sum(case when sh.status = 5 THEN sh.totaldue else 0 end) as MntEnviadas  
-,sum(case when sh.status = 6 THEN sh.totaldue else 0 end) as MntCancelados 
+,sum(case when sh.status = 6 THEN sh.totaldue else 0 end) as MntEnviadas  
 from sales_salesorderheader sh join 
 sales_salesterritory st on sh.territoryid=st.territoryid
 group by 1,2
