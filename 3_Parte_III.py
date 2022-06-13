@@ -72,4 +72,4 @@ df_temps.show()
 # +-----------+----------+---------+--------+
 
 # Clean up by deleting the table from the Databricks cluster.
-spark.sql('DROP TABLE demo_temps_table')
+#spark.sql('DROP TABLE demo_temps_table')
