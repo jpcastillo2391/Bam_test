@@ -29,21 +29,29 @@ from IPython.display import display
 #this is for malbda expression
 import functools
 import operator
+#libreria necesaria para los textboxes
+import tkinter as tk
+from tkinter import filedialog
+from tkinter import simpledialog
+from tkinter import messagebox
 
+import os
+#talvez vayas a necesitar instalar esta libreria
+from pandastable import Table, TableModel
 
 class Connections: 
-    def __init__(self):
-        self.postgres_Connection()
+    def __init__(self,databasein=None):
+        self.postgres_Connection(databasein)
         self.logging=logging.getLogger()
         
     # def open_Connections(self):
         
-    def postgres_Connection(self):
+    def postgres_Connection(self,databasein="Bam_test"):
         try:
-            #psycopg2.
+            #I assume for this instance, that the password 123456789p will be the same, and all is in the same db
             postgresspass='123456789p'
             self._postgresconn = psycopg2.connect(
-            database="Bam_test",
+            database=databasein,
             user='postgres',
         	password=postgresspass,
         	host='localhost',
@@ -55,11 +63,15 @@ class Connections:
             print("No Connection to Postgres")
             
     
+            
+    
     def postgres_CreateandFill(self,resultDF,TableName):
         try:
             print("******************************************************************************")
             resultDF.columns=resultDF.columns.str.lower()
-            
+            '''
+               Programacion defensiva :  Tablas con palabras reservadas para postgres como name y group
+            '''
             for i in range(0,len(resultDF.columns)):
                 if "group" in resultDF.columns.values[i].lower():
                     resultDF.columns.values[i] = resultDF.columns.values[i].lower()+"_t"
@@ -78,7 +90,10 @@ class Connections:
             self.postgres_CreateandFill(resultDF,TableName)
         except Exception as w:
             print(w)
-
+    
+    '''
+        No deberia de llamarse mysql into postgres, pero esta funcion la use en su momento para sincronizar bases de datos
+    '''
     def mysql_CreateTableHeader_intoPostgres(self,resultDF,TableName):
         try:
             columnName = list(resultDF.columns.values)
@@ -105,6 +120,29 @@ class Connections:
         if self._postgresconn is not None:
             print(str(datetime.now())+"\t"+TableName+" Header created")
             self.logging.info(str(datetime.now())+"\t"+TableName+" Header created")
+            
+    def postgres_executer(self,script):
+        try:
+            # Using alchemy method
+            connect_alchemy = "postgresql+psycopg2://%s:%s@%s:%s/%s" % (
+                self.dsn['user'],
+                self.dsn['password'],
+                self.dsn['host'],
+                self.dsn['port'],
+                self.dsn['dbname']
+            )
+            print ('Peparing Engine for Script Executing:')
+            self.logging.debug(str(datetime.now())+"\t"+"Peparing Engine for Script Executing: ")
+            engine = create_engine(connect_alchemy, client_encoding="utf8", pool_pre_ping=True)
+            resultDF = pd.read_sql_query(script,engine)
+            
+        except Exception as e:
+            print("ERROR" + str(e))
+            self.logging.error(str(datetime.now())+"\t"+"Error on Finish executing... ")
+        finally:
+            print (str(datetime.now())+"\t"+"Finish Executing... ")
+            self.logging.info(str(datetime.now())+"\t"+"Finish Executing... ")
+        return resultDF
     
     def postgres_fillinTable(self,resultDF,TableName):
         try:
@@ -143,86 +181,91 @@ class Connections:
                 dataList.append('varchar')
         return dataList
     
+class TestApp(tk.Frame):            
+    def __init__(self, parent=None,dataframe=None):            
+        self.parent = parent            
+        Frame.__init__(self)            
+        self.main = self.master            
+        self.main.geometry('600x400+200+100')            
+        self.main.title('Table app')            
+        f = Frame(self.main)            
+        f.pack(fill=BOTH,expand=1)            
+        df = TableModel.getSampleData()            
+        self.table = pt = Table(f, dataframe=df,                                    
+        showtoolbar=True, showstatusbar=True)            
+        pt.show()            
+        returnapp = TestApp()    
     
 def main():
-    logging.basicConfig(filename='ETLBamApp.log', filemode='w', format='%(name)s - %(levelname)s - %(message)s', level=logging.DEBUG, force=True)
+    application_window = tk.Tk()
+    application_window.title(string='Bamapp Dashboard')
+    
+    log_answer  = filedialog.asksaveasfilename(parent=application_window,
+                                      initialdir=os.getcwd(),
+                                      title="Por favor, selecciona un archivo para guardar tu bitacora",
+                                      defaultextension=".log",
+                                      initialfile="Parte2_log.log",
+                                      filetypes=(("Bamapp Log file", "*.log"),("All Files", "*.*") ))
+    Db_answer = simpledialog.askstring("Input", "Ingrese Database a conectarse?",
+                                parent=application_window,
+                                initialvalue="Bam_test")
+    Table_answer = simpledialog.askstring("Input", "Ingrese Nombre del Catalogo/Tabla () donde almacenara el resultado ?",
+                                parent=application_window,
+                                initialvalue="Bam_test_table")
+    Script_location = filedialog.askopenfilename(parent=application_window,
+                                    initialdir=os.getcwd(),
+                                    title="Seleccione .sql conteniendo el Script a ejecutar :",
+                                    initialfile="Script_prueba_ejecucion.sql",
+                                    filetypes=(("SQl files", "*.sql"),("All Files", "*.*") ))
+    
+    logging.basicConfig(filename=log_answer, filemode='w', format='%(name)s - %(levelname)s - %(message)s', level=logging.DEBUG, force=True)
     logging.getLogger()
-    logging.info('Starting The application ETL in Python')
+    logging.info('Starting The application Script Executer in Python')
+    logging.info(str(datetime.now())+' *******************-       PARTE 2 - Carga de .sql script desde  python    -**********************')
 
-    QueryConnections = Connections()
-
-    logging.info(str(datetime.now())+' *******************-       PARTE 1 - ETL A POSTGRES DB AUTOMATIZADO      -**********************')
-    # Debe cargar las tablas incluídas en esta prueba en una base de datos local de su elección y a
-    # continuación desarrollar lo que se indica en los siguientes incisos. Las soluciones deben de evitar
-    # usar cursores, procedimientos almacenados o similares; se pretende que las soluciones se hagan en
-    # SQL estándar. Para cada inciso, debe incluir la tabla resultante en archivo csv o excel.
     try:
-    #Necesary Tables Data -  fULLY AUTOMATIZATED PROCESS -  doest care kind of separatinr in case of different formats
-        separators=[',',';']
-        full_tables_copy = ["datos_base_clientes","Person.Person","Production.Product","Sales.Customer","Sales.SalesOrderDetail",
-                    "Secuenciales",
-                    "Sales.SalesOrderHeader",
-                    "Sales.SalesTerritory"
-                    ]
-        for table in full_tables_copy:
-            for i in range(0,len(separators)):
-                try:
-                    print("reading csv","Test_Files/"+ table +".csv with "+separators[i])
-                    table_solicitud = pd.read_csv("Test_Files/"+table + ".csv",sep=separators[i])
-                    if len(table_solicitud.columns)<=1:
-                            raise Exception("Only one column excel, doesnt work")
-                    QueryConnections.postgres_CreateandFill(table_solicitud,table.replace(".","_").lower())
-                    logging.info("Open and saver Table: "+table+".csv")
-                    break
-                except Exception as e:
-                    print("Error****")
-            
+        '''
+           Me voy a conectar a la db y a ejecutar el script
+        '''
+        QueryConnections = Connections(Db_answer)
+        fd = open(Script_location, 'r')
+        sqlFile = fd.read()
+        fd.close()
+        print(sqlFile)
+        mydataframe=QueryConnections.postgres_executer(sqlFile)
+        print(mydataframe)
+        
+        '''
+           Voy a mostrar el datatable en una ventana extra , para poder visualizarlo
+        '''
+        frame = tk.Frame(application_window)
+        frame.pack(fill='both', expand=True)
+        
+        pt = Table(frame)
+        pt.show()
+        pt.model.df = mydataframe
+        #pt.model.df = TableModel.getStackedData()
+        
+        logging.info(str(datetime.now())+'*******************-  CIERRE ALA VENTANA DEL EXCEL PARA CONTINUAR-**********************')
+        application_window.mainloop()
+        print("CERRO LA VENTANA")
+        
+        '''
+            Procedo a almacenarlo en la tabla indicada.
+        '''
+        QueryConnections.postgres_CreateandFill(mydataframe,Table_answer)
+        
     except Exception as e:
-        print("ERROR IN PROCESS READ AND LOAD INTO POSTGRES",e)
-        logging.error("ERROR. Open and saver Table")
-
-
-    logging.info(str(datetime.now())+'*******************-          END  ETL   MIGRATION              -**********************')
-
-
-    logging.info(str(datetime.now())+'*******************-   START DATA TRANSFORMATION FOR ANALISIS  -**********************')
-    logging.info(str(datetime.now())+'*******************-   INCISO 1 -**********************')
-    # utilizando las tablas  SalesOrderHeader  y  SalesTerritory  escriba una consulta para calcular la
-    # cantidad de transacciones y monto total mensual por territorio para cada uno de los estados según el
-    # campo  Status . Los valores de  Status  son:  1  =  In process ;  2  =  Approved ;  3  =  Backordered ;  4 
-    # =  Rejected ;  5  =  Shipped ;  6  =  Cancelled 
-    SalesTerritory = pd.read_csv("Test_Files/Sales.SalesTerritory.csv",sep=';')
-    SalesOrderHeader = pd.read_csv("Test_Files/Sales.SalesOrderHeader.csv",sep=';')
-    SalesOrderHeader[["OrderDate","DueDate","ShipDate"]]=SalesOrderHeader[["OrderDate","DueDate","ShipDate"]].apply(pd.to_datetime)
-    SalesOrderHeader['Mes']=SalesOrderHeader["OrderDate"].dt.strftime('%Y-%m')
-    #SalesOrderHeader['Total']=SalesOrderHeader["Subtotal"]+SalesOrderHeader["Subtotal"]+SalesOrderHeader["Subtotal"]
-    SalesOrderHeaderDummyfied=SalesOrderHeader.join(pd.get_dummies(SalesOrderHeader['Status']))
-    SalesOrderHeaderDummyfied.rename(columns = {1:'cTrProceso', 2:'cTrAprobadas', 3:'cTrAtrasadas', 4:'cTrRechazadas', 5:'cTrEnviadas', 6:'cTrCanceladas'}, inplace = True)
-    SalesOrderHeaderDummyfied['totalcTrProceso']=SalesOrderHeaderDummyfied.query('cTrProceso==1')['TotalDue']
-    SalesOrderHeaderDummyfied['totalcTrAprobadas']=SalesOrderHeaderDummyfied.query('cTrAprobadas==1')['TotalDue']
-    SalesOrderHeaderDummyfied['totalcTrAtrasadas']=SalesOrderHeaderDummyfied.query('cTrAtrasadas==1')['TotalDue']
-    SalesOrderHeaderDummyfied['totalcTrRechazadas']=SalesOrderHeaderDummyfied.query('cTrRechazadas==1')['TotalDue']
-    SalesOrderHeaderDummyfied['totalcTrEnviadas']=SalesOrderHeaderDummyfied.query('cTrEnviadas==1')['TotalDue']
-    SalesOrderHeaderDummyfied['totalcTrCanceladas']=SalesOrderHeaderDummyfied.query('cTrCanceladas==1')['TotalDue']
-
-    SalesOrderHeaderDummyfied_joined=pd.merge(SalesOrderHeaderDummyfied, SalesTerritory, on="TerritoryID")
-
-
-    SalesOrderHeaderDummyfied_joined=SalesOrderHeaderDummyfied_joined.groupby(by=['Mes','Name']).agg(TrProceso=('cTrProceso', sum),
-                            TrAprobadas=('cTrAprobadas', sum),TrAtrasadas=('cTrAtrasadas', sum),TrRechazadas=('cTrRechazadas', sum),
-                            TrEnviadas=('cTrEnviadas', sum),TrCanceladas=('cTrCanceladas', sum),MntProceso  =('totalcTrProceso',sum),
-                            MntAprobadas  =('totalcTrAprobadas',sum),MntAtrasadas  =('totalcTrAtrasadas',sum),MntRechazadas  =('totalcTrRechazadas',sum),
-                            MntEnviadas  =('totalcTrEnviadas',sum),MntCanceladas  =('totalcTrCanceladas',sum))
-    ###Resultado_tabla_Inciso1
-    display(SalesOrderHeaderDummyfied_joined)
-    SalesOrderHeaderDummyfied_joined.to_csv('Resultado-inciso1-desde-python.csv', encoding='utf-8')
+        logging.error(str(datetime.now())+'Error dento de la ejecucion')
+    
     
     logging.info(str(datetime.now())+'*******************-  Fin del  INCISO 1 en python-**********************')
-
     
+    #application_window.destroy()
+        
 if __name__ == "__main__":
     display()
-    #main()
+    main()
     
     
 

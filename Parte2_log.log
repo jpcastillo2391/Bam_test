@@ -1,0 +1,5 @@
+root - INFO - Starting The application Script Executer in Python
+root - INFO - 2022-06-13 00:19:32.132320 *******************-       PARTE 2 - Carga de .sql script desde  python    -**********************
+root - DEBUG - 2022-06-13 00:19:32.196658	Peparing Engine for Script Executing: 
+root - INFO - 2022-06-13 00:19:32.276881	Finish Executing... 
+root - INFO - 2022-06-13 00:19:32.296855*******************-  CIERRE ALA VENTANA DEL EXCEL PARA CONTINUAR-**********************
