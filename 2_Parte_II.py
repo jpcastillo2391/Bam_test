@@ -181,20 +181,7 @@ class Connections:
                 dataList.append('varchar')
         return dataList
     
-class TestApp(tk.Frame):            
-    def __init__(self, parent=None,dataframe=None):            
-        self.parent = parent            
-        Frame.__init__(self)            
-        self.main = self.master            
-        self.main.geometry('600x400+200+100')            
-        self.main.title('Table app')            
-        f = Frame(self.main)            
-        f.pack(fill=BOTH,expand=1)            
-        df = TableModel.getSampleData()            
-        self.table = pt = Table(f, dataframe=df,                                    
-        showtoolbar=True, showstatusbar=True)            
-        pt.show()            
-        returnapp = TestApp()    
+
     
 def main():
     application_window = tk.Tk()
