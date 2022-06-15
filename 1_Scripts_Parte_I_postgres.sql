@@ -93,6 +93,14 @@ join secuenciales d on s.secuencial=d.secuencial+1
 join secuenciales f on s.secuencial=f.secuencial+2
 group by s.codigo
 order by Cantidad_veces_seguidos desc
+
+select f.*,d.*,s.* from secuenciales s 
+join secuenciales d on s.secuencial=d.secuencial+2
+join secuenciales f on s.secuencial=f.secuencial+4
+where s.codigo=f.codigo and f.codigo=d.codigo
+order by s.secuencial asc
+
+select * from secuenciales
 '''
      INCISO 5
 lo dejare pendiente
